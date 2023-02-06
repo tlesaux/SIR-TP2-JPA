@@ -10,14 +10,20 @@ import java.util.List;
 public class Tag implements Serializable {
 
     String name;
-
     List<Ticket> tickets;
+
+    public Tag(){
+
+    }
+
+    public Tag(String name){
+        this.name = name;
+    }
 
     @Id
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -26,7 +32,6 @@ public class Tag implements Serializable {
     public List<Ticket> getTickets() {
         return tickets;
     }
-
     public void setTickets(List<Ticket> tickets) {
         this.tickets = tickets;
     }

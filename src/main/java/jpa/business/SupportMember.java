@@ -12,6 +12,10 @@ public class SupportMember extends User {
         super();
     }
 
+    public SupportMember(String name){
+        super(name);
+    }
+
 
     @ManyToMany
     @JoinTable(name="Support_Tickets")

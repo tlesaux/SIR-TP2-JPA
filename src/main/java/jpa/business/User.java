@@ -9,16 +9,22 @@ public class User implements Serializable {
 
     Long id;
     String name;
-
     List<Ticket> createdTickets;
     List<Message> sentMessages;
+
+    public User(){
+
+    }
+
+    public User(String name){
+        this.name = name;
+    }
 
     @Id
     @GeneratedValue
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -26,7 +32,6 @@ public class User implements Serializable {
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -35,7 +40,6 @@ public class User implements Serializable {
     public List<Ticket> getCreatedTickets() {
         return createdTickets;
     }
-
     public void setCreatedTickets(List<Ticket> tickets) {
         this.createdTickets = tickets;
     }
@@ -44,7 +48,6 @@ public class User implements Serializable {
     public List<Message> getSentMessages() {
         return sentMessages;
     }
-
     public void setSentMessages(List<Message> sentMessages) {
         this.sentMessages = sentMessages;
     }

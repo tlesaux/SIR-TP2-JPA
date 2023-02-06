@@ -12,24 +12,29 @@ public class Ticket implements Serializable {
 
     Long id;
     String status;
-
-    User userToHelp;
-
-    List<SupportMember> affectedSupportMembers;
     String description;
     Date startingDate;
     Date closingDate;
-
-    List<Tag> tags;
+    User userToHelp;
+    List<SupportMember> affectedSupportMembers;
     List<Message> conversation;
+    List<Tag> tags;
 
+    public Ticket(){
+
+    }
+
+    public Ticket(String desc, User user){
+        this.status = "Unresolved";
+        this.description = desc;
+        this.userToHelp = user;
+    }
 
     @Id
     @GeneratedValue
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -37,7 +42,6 @@ public class Ticket implements Serializable {
     public String getStatus() {
         return status;
     }
-
     public void setStatus(String status) {
         this.status = status;
     }
@@ -46,7 +50,6 @@ public class Ticket implements Serializable {
     public User getUserToHelp() {
         return userToHelp;
     }
-
     public void setUserToHelp(User userToHelp) {
         this.userToHelp = userToHelp;
     }
@@ -55,23 +58,17 @@ public class Ticket implements Serializable {
     public List<SupportMember> getAffectedSupportMembers() {
         return affectedSupportMembers;
     }
+    public void setAffectedSupportMembers(List<SupportMember> affectedSupportMembers) { this.affectedSupportMembers = affectedSupportMembers; }
 
-    public void setAffectedSupportMembers(List<SupportMember> affectedSupportMembers) {
-        this.affectedSupportMembers = affectedSupportMembers;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
+    public String getDescription() { return description; }
     public void setDescription(String description) {
         this.description = description;
     }
 
+    @Temporal(TemporalType.DATE)
     public Date getStartingDate() {
         return startingDate;
     }
-
     public void setStartingDate(Date startingDate) {
         this.startingDate = startingDate;
     }
@@ -79,7 +76,6 @@ public class Ticket implements Serializable {
     public Date getClosingDate() {
         return closingDate;
     }
-
     public void setClosingDate(Date closingDate) {
         this.closingDate = closingDate;
     }
@@ -88,7 +84,6 @@ public class Ticket implements Serializable {
     public List<Message> getConversation() {
         return conversation;
     }
-
     public void setConversation(List<Message> conversation) {
         this.conversation = conversation;
     }
@@ -98,7 +93,6 @@ public class Ticket implements Serializable {
     public List<Tag> getTags() {
         return tags;
     }
-
     public void setTags(List<Tag> tags) {
         this.tags = tags;
     }
