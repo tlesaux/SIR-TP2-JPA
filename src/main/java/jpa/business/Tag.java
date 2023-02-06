@@ -3,10 +3,11 @@ package jpa.business;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class Tag {
+public class Tag implements Serializable {
 
     String name;
 

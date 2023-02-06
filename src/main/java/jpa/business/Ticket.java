@@ -3,13 +3,14 @@ package jpa.business;
 import org.hibernate.annotations.Generated;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-public class Ticket {
+public class Ticket implements Serializable {
 
-    long id;
+    Long id;
     String status;
 
     User userToHelp;
@@ -25,11 +26,11 @@ public class Ticket {
 
     @Id
     @GeneratedValue
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

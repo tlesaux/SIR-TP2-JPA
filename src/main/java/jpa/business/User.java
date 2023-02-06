@@ -1,16 +1,27 @@
 package jpa.business;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class User {
+public class User implements Serializable {
 
-    long id;
+    Long id;
     String name;
 
     List<Ticket> createdTickets;
     List<Message> sentMessages;
+
+    @Id
+    @GeneratedValue
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -38,13 +49,4 @@ public class User {
         this.sentMessages = sentMessages;
     }
 
-    @Id
-    @GeneratedValue
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 }
