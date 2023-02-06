@@ -12,7 +12,6 @@ public class Ticket {
     long id;
     String status;
 
-
     User userToHelp;
 
     List<SupportMember> affectedSupportMembers;
@@ -21,6 +20,7 @@ public class Ticket {
     Date closingDate;
 
     List<Tag> tags;
+    List<Message> conversation;
 
 
     @Id
@@ -50,7 +50,7 @@ public class Ticket {
         this.userToHelp = userToHelp;
     }
 
-    @ManyToMany (mappedBy="tickets")
+    @ManyToMany (mappedBy="affectedTickets")
     public List<SupportMember> getAffectedSupportMembers() {
         return affectedSupportMembers;
     }
@@ -81,6 +81,15 @@ public class Ticket {
 
     public void setClosingDate(Date closingDate) {
         this.closingDate = closingDate;
+    }
+
+    @OneToMany (mappedBy="relatedTicket")
+    public List<Message> getConversation() {
+        return conversation;
+    }
+
+    public void setConversation(List<Message> conversation) {
+        this.conversation = conversation;
     }
 
     @ManyToMany

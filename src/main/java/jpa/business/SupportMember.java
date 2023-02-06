@@ -4,13 +4,13 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class SupportMember {
+public class SupportMember extends User {
 
-    long id;
-    String name;
+    List<Ticket> affectedTickets;
 
-    List<Ticket> tickets;
-
+    public SupportMember(){
+        super();
+    }
 
     public String getName() {
         return name;
@@ -22,12 +22,12 @@ public class SupportMember {
 
     @ManyToMany
     @JoinTable(name="Support_Tickets")
-    public List<Ticket> getTickets() {
-        return tickets;
+    public List<Ticket> getAffectedTickets() {
+        return affectedTickets;
     }
 
-    public void setTickets(List<Ticket> tickets) {
-        this.tickets = tickets;
+    public void setAffectedTickets(List<Ticket> tickets) {
+        this.affectedTickets = tickets;
     }
 
 

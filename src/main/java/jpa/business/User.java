@@ -1,9 +1,6 @@
 package jpa.business;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -12,7 +9,8 @@ public class User {
     long id;
     String name;
 
-    List<Ticket> tickets;
+    List<Ticket> createdTickets;
+    List<Message> sentMessages;
 
     public String getName() {
         return name;
@@ -23,15 +21,22 @@ public class User {
     }
 
     @OneToMany (mappedBy="userToHelp")
-    public List<Ticket> getTickets() {
-        return tickets;
+    public List<Ticket> getCreatedTickets() {
+        return createdTickets;
     }
 
-    public void setTickets(List<Ticket> tickets) {
-        this.tickets = tickets;
+    public void setCreatedTickets(List<Ticket> tickets) {
+        this.createdTickets = tickets;
     }
 
+    @OneToMany (mappedBy="sender")
+    public List<Message> getSentMessages() {
+        return sentMessages;
+    }
 
+    public void setSentMessages(List<Message> sentMessages) {
+        this.sentMessages = sentMessages;
+    }
 
     @Id
     @GeneratedValue
