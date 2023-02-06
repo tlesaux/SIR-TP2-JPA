@@ -12,13 +12,6 @@ public class SupportMember extends User {
         super();
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     @ManyToMany
     @JoinTable(name="Support_Tickets")
@@ -29,20 +22,6 @@ public class SupportMember extends User {
     public void setAffectedTickets(List<Ticket> tickets) {
         this.affectedTickets = tickets;
     }
-
-
-    @Id
-    @GeneratedValue
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-
-
 
 
 }
