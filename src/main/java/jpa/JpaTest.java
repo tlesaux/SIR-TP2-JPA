@@ -55,12 +55,12 @@ public class JpaTest {
 		Tag tag2 = new Tag("Bug");
 		Tag tag3 = new Tag("Feature");
 
-		Ticket ticket1 = new Ticket("Où trouver...", user1);
-		Ticket ticket2 = new Ticket("Je ne comprends pas...", user1);
-		Ticket ticket3 = new Ticket("J'ai besoin d'aide pour...", user2);
-		Ticket ticket4 = new Ticket("Erreur quand...", user2);
-		Ticket ticket5 = new Ticket("Ne fonctionne pas...", user3);
-		Ticket ticket6 = new Ticket("Nouveau bouton pour...", user3);
+		Ticket ticket1 = new Ticket("Recherche Option","Où trouver...", user1);
+		Ticket ticket2 = new Ticket("Incompréhension","Je ne comprends pas...", user1);
+		Ticket ticket3 = new Ticket("Besoin d'aide", "J'ai besoin d'aide pour...", user2);
+		Ticket ticket4 = new Ticket("Erreur", "Erreur quand...", user2);
+		Ticket ticket5 = new Ticket("Disfonctionnement", "Ne fonctionne pas...", user3);
+		Ticket ticket6 = new Ticket("Idée Feature", "Nouveau bouton pour...", user3);
 
 		Message messageA1 = new Message(supp1, ticket1, "Veuillez vous rendre dans la section ...");
 		Message messageA2 = new Message(user1, ticket1, "Merci beaucoup.0");
