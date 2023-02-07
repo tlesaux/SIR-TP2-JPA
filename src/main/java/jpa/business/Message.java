@@ -8,13 +8,9 @@ import java.util.Date;
 public class Message implements Serializable {
 
     Long id;
-
     User sender;
-
     Ticket relatedTicket;
-
     String content;
-
     Date date;
 
     public Message(){
@@ -25,6 +21,10 @@ public class Message implements Serializable {
         this.sender = sender;
         this.relatedTicket = ticket;
         this.content = content;
+    }
+
+    public String toString(){
+        return "Message : [" + this.id + "] " + date + '\n' + this.sender + this.relatedTicket + "Content : " + '\n' + this.content + '\n';
     }
 
     @Id

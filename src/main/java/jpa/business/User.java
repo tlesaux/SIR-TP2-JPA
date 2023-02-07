@@ -24,6 +24,10 @@ public class User implements Serializable {
         this.sentMessages = new ArrayList<Message>();
     }
 
+    public String toString(){
+        return "Name : " + this.name + " | ID : " + this.id + '\n';
+    }
+
     @Id
     @GeneratedValue
     public Long getId() {

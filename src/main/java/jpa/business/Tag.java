@@ -22,6 +22,10 @@ public class Tag implements Serializable {
         this.tickets = new ArrayList<Ticket>();
     }
 
+    public String toString(){
+        return "Tag Name : " + this.name;
+    }
+
     @Id
     public String getName() {
         return name;

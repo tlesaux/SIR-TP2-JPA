@@ -36,6 +36,28 @@ public class Ticket implements Serializable {
         this.tags = new ArrayList<Tag>();
     }
 
+    public String toString(){
+        String toReturn =  "Ticket [" + this.id + "] " + this.status + "started at " + startingDate + " | closed at " + closingDate +
+                '\n' + "From " + userToHelp.name +
+                '\n' + "Titre : " + this.title +
+                '\n' + "Description : " + this.description ;
+
+        String tags = "";
+        for(int i = 0 ; i < this.tags.size() ; i++){
+            tags += this.tags.get(i) + " | ";
+        }
+
+        toReturn += '\n' + "Tags : " + tags;
+
+        String supportMembers = "";
+        for(int i = 0 ; i < this.affectedSupportMembers.size() ; i++){
+            supportMembers += this.affectedSupportMembers.get(i).getName() + " | ";
+        }
+
+        toReturn += '\n' + "Affected Support Members : " + supportMembers + '\n';
+        return toReturn;
+    }
+
     @Id
     @GeneratedValue
     public Long getId() {
