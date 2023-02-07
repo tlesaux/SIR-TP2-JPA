@@ -2,6 +2,7 @@ package jpa.business;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,11 +14,14 @@ public class User implements Serializable {
     List<Message> sentMessages;
 
     public User(){
-
+        this.createdTickets = new ArrayList<Ticket>();
+        this.sentMessages = new ArrayList<Message>();
     }
 
     public User(String name){
         this.name = name;
+        this.createdTickets = new ArrayList<Ticket>();
+        this.sentMessages = new ArrayList<Message>();
     }
 
     @Id

@@ -4,6 +4,7 @@ import org.hibernate.annotations.Generated;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,13 +22,26 @@ public class Ticket implements Serializable {
     List<Tag> tags;
 
     public Ticket(){
-
+        this.affectedSupportMembers = new ArrayList<SupportMember>();
+        this.conversation = new ArrayList<Message>();
+        this.tags = new ArrayList<Tag>();
     }
 
     public Ticket(String desc, User user){
         this.status = "Unresolved";
         this.description = desc;
         this.userToHelp = user;
+        this.affectedSupportMembers = new ArrayList<SupportMember>();
+        this.conversation = new ArrayList<Message>();
+        this.tags = new ArrayList<Tag>();
+    }
+
+    public Ticket(String desc, User user, List<SupportMember> supp, List<Tag> tags){
+        this.status = "Unresolved";
+        this.description = desc;
+        this.userToHelp = user;
+        this.affectedSupportMembers = supp;
+        this.tags = tags;
     }
 
     @Id
@@ -80,7 +94,7 @@ public class Ticket implements Serializable {
         this.closingDate = closingDate;
     }
 
-    @OneToMany (mappedBy="relatedTicket")
+    @OneToMany (mappedBy="relatedTicket", cascade = {CascadeType.REMOVE})
     public List<Message> getConversation() {
         return conversation;
     }
@@ -96,6 +110,17 @@ public class Ticket implements Serializable {
     public void setTags(List<Tag> tags) {
         this.tags = tags;
     }
+
+    public void addTag(Tag tag){
+        this.tags.add(tag);
+        tag.tickets.add(this);
+    }
+
+    public void removeTag(Tag tag){
+        this.tags.remove(tag);
+        tag.tickets.remove(this);
+    }
+
 
 
 

@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,11 +14,12 @@ public class Tag implements Serializable {
     List<Ticket> tickets;
 
     public Tag(){
-
+        this.tickets = new ArrayList<Ticket>();
     }
 
     public Tag(String name){
         this.name = name;
+        this.tickets = new ArrayList<Ticket>();
     }
 
     @Id

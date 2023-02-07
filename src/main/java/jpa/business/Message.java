@@ -28,6 +28,7 @@ public class Message implements Serializable {
     }
 
     @Id
+    @GeneratedValue
     public Long getId() {
         return id;
     }
