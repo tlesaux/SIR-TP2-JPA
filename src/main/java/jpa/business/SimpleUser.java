@@ -11,14 +11,11 @@ import java.util.List;
 public class SimpleUser extends User implements Serializable {
 
     public SimpleUser(){
-        this.createdTickets = new ArrayList<Ticket>();
-        this.sentMessages = new ArrayList<Message>();
+        super();
     }
 
     public SimpleUser(String name){
-        this.name = name;
-        this.createdTickets = new ArrayList<Ticket>();
-        this.sentMessages = new ArrayList<Message>();
+        super(name);
     }
 
     public String toString(){

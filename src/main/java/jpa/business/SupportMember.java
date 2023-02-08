@@ -13,15 +13,12 @@ public class SupportMember extends User implements Serializable {
     List<Ticket> affectedTickets;
 
     public SupportMember(){
-        this.createdTickets = new ArrayList<Ticket>();
-        this.sentMessages = new ArrayList<Message>();
-        this.affectedTickets = new ArrayList<Ticket>();
+       super();
+       this.affectedTickets = new ArrayList<Ticket>();
     }
 
     public SupportMember(String name){
-        this.name = name;
-        this.createdTickets = new ArrayList<Ticket>();
-        this.sentMessages = new ArrayList<Message>();
+        super(name);
         this.affectedTickets = new ArrayList<Ticket>();
     }
 
