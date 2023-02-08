@@ -12,12 +12,15 @@ public class SupportMember extends User {
     List<Ticket> affectedTickets;
 
     public SupportMember(){
-        super();
+        this.createdTickets = new ArrayList<Ticket>();
+        this.sentMessages = new ArrayList<Message>();
         this.affectedTickets = new ArrayList<Ticket>();
     }
 
     public SupportMember(String name){
-        super(name);
+        this.name = name;
+        this.createdTickets = new ArrayList<Ticket>();
+        this.sentMessages = new ArrayList<Message>();
         this.affectedTickets = new ArrayList<Ticket>();
     }
 

@@ -3,12 +3,8 @@ package jpa;
 import dao.*;
 import jpa.business.*;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+
 
 
 public class JpaTest {
@@ -22,7 +18,7 @@ public class JpaTest {
 
 		for(int i = 0 ; i < randomNames.length ; i++){
 			UserDao userDao = new UserDao();
-			User user = new User(randomNames[i]);
+			SimpleUser user = new SimpleUser(randomNames[i]);
 			userDao.save(user);
 		}
 	}
@@ -42,11 +38,14 @@ public class JpaTest {
 	}
 
 
+	/**
+	 *
+	 */
 	public static void fillDatabaseWithTicketsMessagesTags(){
 
-		User user1 = new User("Jean");
-		User user2 = new User("Jeanne");
-		User user3 = new User("Pierre");
+		SimpleUser user1 = new SimpleUser("Jean");
+		SimpleUser user2 = new SimpleUser("Jeanne");
+		SimpleUser user3 = new SimpleUser("Pierre");
 
 		SupportMember supp1 = new SupportMember("Noel Plouzeau");
 		SupportMember supp2 = new SupportMember("Olivier Barais");
@@ -116,6 +115,13 @@ public class JpaTest {
 
 	}
 
+	public static void requestTest(){
+
+		UserDao userDao = new UserDao();
+		List<Ticket> list = userDao.findMyCreatedTickets((long) 1 );
+		System.out.println(list.get(0));
+	}
+
 
 
 
@@ -125,7 +131,8 @@ public class JpaTest {
 	public static void main(String[] args) {
 		//fillDatabaseWithNormalUsers();
 		//fillDatabaseWithSupportMembers();
-		fillDatabaseWithTicketsMessagesTags();
+		//fillDatabaseWithTicketsMessagesTags();
+		requestTest();
 
 
 

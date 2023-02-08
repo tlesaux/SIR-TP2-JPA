@@ -15,7 +15,7 @@ public class Ticket implements Serializable {
     String description;
     Date startingDate;
     Date closingDate;
-    User userToHelp;
+    SimpleUser userToHelp;
     List<SupportMember> affectedSupportMembers;
     List<Message> conversation;
     List<Tag> tags;
@@ -26,7 +26,7 @@ public class Ticket implements Serializable {
         this.tags = new ArrayList<Tag>();
     }
 
-    public Ticket(String title, String desc, User user){
+    public Ticket(String title, String desc, SimpleUser user){
         this.status = "Unresolved";
         this.title = title;
         this.description = desc;
@@ -75,10 +75,10 @@ public class Ticket implements Serializable {
     }
 
     @ManyToOne
-    public User getUserToHelp() {
+    public SimpleUser getUserToHelp() {
         return userToHelp;
     }
-    public void setUserToHelp(User userToHelp) {
+    public void setUserToHelp(SimpleUser userToHelp) {
         this.userToHelp = userToHelp;
     }
 

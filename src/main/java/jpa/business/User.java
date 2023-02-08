@@ -1,32 +1,17 @@
 package jpa.business;
 
-import javax.persistence.*;
-import java.io.Serializable;
-import java.util.ArrayList;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.util.List;
 
-@Entity
-public class User implements Serializable {
+public abstract class User {
 
     Long id;
     String name;
     List<Ticket> createdTickets;
     List<Message> sentMessages;
-
-    public User(){
-        this.createdTickets = new ArrayList<Ticket>();
-        this.sentMessages = new ArrayList<Message>();
-    }
-
-    public User(String name){
-        this.name = name;
-        this.createdTickets = new ArrayList<Ticket>();
-        this.sentMessages = new ArrayList<Message>();
-    }
-
-    public String toString(){
-        return "Name : " + this.name + " | ID : " + this.id + '\n';
-    }
 
     @Id
     @GeneratedValue
@@ -44,7 +29,7 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    @OneToMany (mappedBy="userToHelp")
+    @OneToMany(mappedBy="userToHelp")
     public List<Ticket> getCreatedTickets() {
         return createdTickets;
     }
@@ -59,5 +44,4 @@ public class User implements Serializable {
     public void setSentMessages(List<Message> sentMessages) {
         this.sentMessages = sentMessages;
     }
-
 }

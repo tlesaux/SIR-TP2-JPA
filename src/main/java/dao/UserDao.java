@@ -1,15 +1,15 @@
 package dao;
 
 import jpa.business.Ticket;
-import jpa.business.User;
+import jpa.business.SimpleUser;
 
 import javax.persistence.Query;
 import java.util.List;
 
-public class UserDao extends AbstractJpaDao<Long, User> {
+public class UserDao extends AbstractJpaDao<Long, SimpleUser> {
 
     public UserDao(){
-        super(User.class);
+        super(SimpleUser.class);
     }
 
     public List<Ticket> findMyCreatedTickets(Long userId){
