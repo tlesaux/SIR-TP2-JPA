@@ -10,8 +10,8 @@ import java.util.List;
 @Entity
 public class Tag implements Serializable {
 
-    String name;
-    List<Ticket> tickets;
+    private String name;
+    private List<Ticket> tickets;
 
     public Tag(){
         this.tickets = new ArrayList<Ticket>();

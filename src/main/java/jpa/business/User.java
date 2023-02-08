@@ -1,19 +1,18 @@
 package jpa.business;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class User implements Serializable {
 
-    Long id;
-    String name;
-    List<Ticket> createdTickets;
-    List<Message> sentMessages;
+    private Long id;
+    private String name;
+    private List<Ticket> createdTickets;
+    private List<Message> sentMessages;
 
     public User(){
         this.createdTickets = new ArrayList<Ticket>();
@@ -42,7 +41,7 @@ public abstract class User implements Serializable {
         this.name = name;
     }
 
-    @OneToMany(mappedBy="userToHelp")
+    @OneToMany(mappedBy="creator")
     public List<Ticket> getCreatedTickets() {
         return createdTickets;
     }

@@ -9,16 +9,16 @@ import java.util.List;
 @Entity
 public class Ticket implements Serializable {
 
-    Long id;
-    String status;
-    String title;
-    String description;
-    Date startingDate;
-    Date closingDate;
-    SimpleUser userToHelp;
-    List<SupportMember> affectedSupportMembers;
-    List<Message> conversation;
-    List<Tag> tags;
+    private Long id;
+    private String status;
+    private String title;
+    private String description;
+    private Date startingDate;
+    private Date closingDate;
+    private User creator;
+    private List<SupportMember> affectedSupportMembers;
+    private List<Message> conversation;
+    private List<Tag> tags;
 
     public Ticket(){
         this.affectedSupportMembers = new ArrayList<SupportMember>();
@@ -26,19 +26,19 @@ public class Ticket implements Serializable {
         this.tags = new ArrayList<Tag>();
     }
 
-    public Ticket(String title, String desc, SimpleUser user){
+    public Ticket(String title, String desc, User creator){
         this.status = "Unresolved";
         this.title = title;
         this.description = desc;
-        this.userToHelp = user;
+        this.creator = creator;
         this.affectedSupportMembers = new ArrayList<SupportMember>();
         this.conversation = new ArrayList<Message>();
         this.tags = new ArrayList<Tag>();
     }
 
     public String toString(){
-        String toReturn =  "Ticket [" + this.id + "] " + this.status + "started at " + startingDate + " | closed at " + closingDate +
-                '\n' + "From " + userToHelp.name +
+        String toReturn =  "Ticket [" + this.id + "] " + this.status + " | started at " + startingDate + " | closed at " + closingDate +
+                '\n' + "From " + this.creator.getName() +
                 '\n' + "Titre : " + this.title +
                 '\n' + "Description : " + this.description ;
 
@@ -75,11 +75,11 @@ public class Ticket implements Serializable {
     }
 
     @ManyToOne
-    public SimpleUser getUserToHelp() {
-        return userToHelp;
+    public User getCreator() {
+        return creator;
     }
-    public void setUserToHelp(SimpleUser userToHelp) {
-        this.userToHelp = userToHelp;
+    public void setCreator(User creator) {
+        this.creator = creator;
     }
 
     @ManyToMany (mappedBy="affectedTickets")
@@ -132,12 +132,12 @@ public class Ticket implements Serializable {
 
     public void addTag(Tag tag){
         this.tags.add(tag);
-        tag.tickets.add(this);
+        tag.getTickets().add(this);
     }
 
     public void removeTag(Tag tag){
         this.tags.remove(tag);
-        tag.tickets.remove(this);
+        tag.getTickets().remove(this);
     }
 
 

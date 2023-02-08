@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorValue("User")
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//@DiscriminatorValue("User")
 public class SimpleUser extends User implements Serializable {
 
     public SimpleUser(){
@@ -19,7 +19,7 @@ public class SimpleUser extends User implements Serializable {
     }
 
     public String toString(){
-        return "Name : " + this.name + " | ID : " + this.id + '\n';
+        return "Name : " + this.getName() + " | ID : " + this.getId() + '\n';
     }
 
 

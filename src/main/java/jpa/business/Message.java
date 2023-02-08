@@ -7,11 +7,11 @@ import java.util.Date;
 @Entity
 public class Message implements Serializable {
 
-    Long id;
-    User sender;
-    Ticket relatedTicket;
-    String content;
-    Date date;
+    private Long id;
+    private User sender;
+    private Ticket relatedTicket;
+    private String content;
+    private Date date;
 
     public Message(){
 

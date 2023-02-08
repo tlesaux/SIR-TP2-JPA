@@ -18,7 +18,7 @@ public class JpaTest {
 
 		for(int i = 0 ; i < randomNames.length ; i++){
 			UserDao userDao = new UserDao();
-			SimpleUser user = new SimpleUser(randomNames[i]);
+			User user = new SimpleUser(randomNames[i]);
 			userDao.save(user);
 		}
 	}
@@ -43,9 +43,9 @@ public class JpaTest {
 	 */
 	public static void fillDatabaseWithTicketsMessagesTags(){
 
-		SimpleUser user1 = new SimpleUser("Jean");
-		SimpleUser user2 = new SimpleUser("Jeanne");
-		SimpleUser user3 = new SimpleUser("Pierre");
+		User user1 = new SimpleUser("Jean");
+		User user2 = new SimpleUser("Jeanne");
+		User user3 = new SimpleUser("Pierre");
 
 		SupportMember supp1 = new SupportMember("Noel Plouzeau");
 		SupportMember supp2 = new SupportMember("Olivier Barais");
@@ -118,7 +118,7 @@ public class JpaTest {
 	public static void requestTest(){
 
 		UserDao userDao = new UserDao();
-		List<Ticket> list = userDao.findMyCreatedTickets((long) 1 );
+		List<Ticket> list = userDao.findMyCreatedTickets((long) 26 );
 		System.out.println(list.get(0));
 	}
 
@@ -129,10 +129,10 @@ public class JpaTest {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		fillDatabaseWithNormalUsers();
-		fillDatabaseWithSupportMembers();
-		fillDatabaseWithTicketsMessagesTags();
-		//requestTest();
+		//fillDatabaseWithNormalUsers();
+		//fillDatabaseWithSupportMembers();
+		//fillDatabaseWithTicketsMessagesTags();
+		requestTest();
 
 
 
