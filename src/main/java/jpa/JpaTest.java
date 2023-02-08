@@ -129,10 +129,10 @@ public class JpaTest {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		//fillDatabaseWithNormalUsers();
-		//fillDatabaseWithSupportMembers();
-		//fillDatabaseWithTicketsMessagesTags();
-		requestTest();
+		fillDatabaseWithNormalUsers();
+		fillDatabaseWithSupportMembers();
+		fillDatabaseWithTicketsMessagesTags();
+		//requestTest();
 
 
 

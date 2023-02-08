@@ -1,13 +1,14 @@
 package jpa.business;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorValue("Support")
-public class SupportMember extends User {
+public class SupportMember extends User implements Serializable {
 
     List<Ticket> affectedTickets;
 
