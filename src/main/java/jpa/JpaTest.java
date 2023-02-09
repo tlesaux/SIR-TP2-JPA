@@ -116,10 +116,16 @@ public class JpaTest {
 	}
 
 	public static void requestTest(){
+		//UserDao userDao = new UserDao();
+		//List<Ticket> list = userDao.findAllTicketByUserId((long) 26 );
+		//System.out.println(list.get(0));
 
-		UserDao userDao = new UserDao();
-		List<Ticket> list = userDao.findMyCreatedTickets((long) 26 );
+		TicketDao ticketDao = new TicketDao();
+		List<Ticket> list = ticketDao.getAffectedTicketsBySupportMemberId((long) 35);
 		System.out.println(list.get(0));
+
+
+
 	}
 
 
@@ -139,16 +145,11 @@ public class JpaTest {
 		/* EntityManager manager = EntityManagerHelper.getEntityManager();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
-
-
 		try {
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		tx.commit();
-
-
 		manager.close();
 		EntityManagerHelper.closeEntityManagerFactory(); */
 		//		factory.close();

@@ -12,12 +12,10 @@ public class TagDao extends AbstractJpaDao<String, Tag>{
         super(Tag.class);
     }
 
-    public List<Ticket> getTicketsByTagName(String tagName){
-        Query query = entityManager.createQuery("select t, g from Ticket t LEFT JOIN Tickets_Tags g " +
-                "WHERE g.tags_name = 1?");
+    public List<Ticket> findAllTagsByTicketId(String tagName){
+        Query query = entityManager.createQuery("select g from Tag g where g.tickets.id = ?1");
         query.setParameter(1, tagName);
         return query.getResultList();
     }
-
 
 }
