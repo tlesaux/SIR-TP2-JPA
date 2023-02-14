@@ -4,6 +4,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+import static misc.GlobalFunctions.getCurrentDate;
+
+
 @Entity
 public class Message implements Serializable {
 
@@ -14,13 +17,14 @@ public class Message implements Serializable {
     private Date date;
 
     public Message(){
-
+        this.date = getCurrentDate();
     }
 
     public Message(User sender, Ticket ticket, String content){
         this.sender = sender;
         this.relatedTicket = ticket;
         this.content = content;
+        this.date = getCurrentDate();
     }
 
     public String toString(){
@@ -59,7 +63,7 @@ public class Message implements Serializable {
         this.content = content;
     }
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIME)
     public Date getDate() {
         return date;
     }

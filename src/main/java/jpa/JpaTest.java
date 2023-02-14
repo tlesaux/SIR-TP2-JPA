@@ -116,13 +116,13 @@ public class JpaTest {
 	}
 
 	public static void requestTest(){
-		//UserDao userDao = new UserDao();
+		 //UserDao userDao = new UserDao();
 		//List<Ticket> list = userDao.findAllTicketByUserId((long) 26 );
 		//System.out.println(list.get(0));
 
-		TicketDao ticketDao = new TicketDao();
-		List<Ticket> list = ticketDao.getAffectedTicketsBySupportMemberId((long) 35);
-		System.out.println(list.get(0));
+		//TicketDao ticketDao = new TicketDao();
+		//List<Ticket> list = ticketDao.getAffectedTicketsBySupportMemberId((long) 35);
+		//System.out.println(list.get(0));
 
 
 
@@ -135,10 +135,10 @@ public class JpaTest {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		//fillDatabaseWithNormalUsers();
+		fillDatabaseWithNormalUsers();
 		//fillDatabaseWithSupportMembers();
 		//fillDatabaseWithTicketsMessagesTags();
-		requestTest();
+		//requestTest();
 
 
 

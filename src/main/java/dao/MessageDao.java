@@ -17,4 +17,9 @@ public class MessageDao extends AbstractJpaDao<Long, Message> {
         return query.getResultList();
     }
 
+    public List<Message> getMessagesByUserId(Long userId){
+        Query query = entityManager.createQuery("select m from Message m where m.sender.id = ?1");
+        query.setParameter(1, userId);
+        return query.getResultList();
+    }
 }

@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static misc.GlobalFunctions.getCurrentDate;
+
 @Entity
 public class Ticket implements Serializable {
 
@@ -13,7 +15,7 @@ public class Ticket implements Serializable {
     private String status;
     private String title;
     private String description;
-    private Date startingDate;
+    private Date creationDate;
     private Date closingDate;
     private User creator;
     private List<SupportMember> affectedSupportMembers;
@@ -24,6 +26,7 @@ public class Ticket implements Serializable {
         this.affectedSupportMembers = new ArrayList<SupportMember>();
         this.conversation = new ArrayList<Message>();
         this.tags = new ArrayList<Tag>();
+        this.creationDate = getCurrentDate();
     }
 
     public Ticket(String title, String desc, User creator){
@@ -34,10 +37,11 @@ public class Ticket implements Serializable {
         this.affectedSupportMembers = new ArrayList<SupportMember>();
         this.conversation = new ArrayList<Message>();
         this.tags = new ArrayList<Tag>();
+        this.creationDate = getCurrentDate();
     }
 
     public String toString(){
-        String toReturn =  "Ticket [" + this.id + "] " + this.status + " | started at " + startingDate + " | closed at " + closingDate +
+        String toReturn =  "Ticket [" + this.id + "] " + this.status + " | started at " + creationDate + " | closed at " + closingDate +
                 '\n' + "From " + this.creator.getName() +
                 '\n' + "Titre : " + this.title +
                 '\n' + "Description : " + this.description ;
@@ -99,11 +103,11 @@ public class Ticket implements Serializable {
     }
 
     @Temporal(TemporalType.DATE)
-    public Date getStartingDate() {
-        return startingDate;
+    public Date getCreationDate() {
+        return creationDate;
     }
-    public void setStartingDate(Date startingDate) {
-        this.startingDate = startingDate;
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 
     public Date getClosingDate() {
