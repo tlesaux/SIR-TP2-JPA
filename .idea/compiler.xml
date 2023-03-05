@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="testjpa" />
+        <module name="SIR-TP2-JPA" />
       </profile>
     </annotationProcessing>
   </component>
