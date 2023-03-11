@@ -1,115 +1,159 @@
 package jpa;
 
 import dao.*;
-import enumeration.Tag;
 import jpa.business.*;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 import java.util.List;
+
 
 
 public class JpaTest {
 
-    private final EntityManager manager;
+	/**
+	 * Peuple la base avec 20 Users (Ne font pas partie du support, n'ont pas de tickets et donc pas de messages)
+	 */
+	public static void fillDatabaseWithNormalUsers(){
+		String[] randomNames = {"Gabriel", "Léo", "Raphael", "Louis", "Arthur", "Jules", "Mael", "Noah", "Adam", "Lucas",
+				                "Jade", "Louise", "Emma", "Ambre", "Alice", "Rose", "Anna", "Alba", "Romy", "Mia" };
 
-    public JpaTest(EntityManager manager) {
-        this.manager = manager;
-    }
-
-    /**
-     * @param args
-     */
-    public static void main(String[] args) {
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("dev");
-        EntityManager manager = factory.createEntityManager();
-        JpaTest test = new JpaTest(manager);
-
-        EntityTransaction tx = manager.getTransaction();
-        tx.begin();
-        try {
-            test.fillDatabase();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        tx.commit();
-
-        test.listTickets();
-
-        manager.close();
-        System.out.println(".. done");
-    }
-
-    private void listTickets() {
-        List<Ticket> resultList = manager.createQuery("Select t From Ticket t", Ticket.class).getResultList();
-        System.out.println("num of tickets:" + resultList.size());
-        for (Ticket next : resultList) {
-            System.out.println("next ticket: " + next);
-        }
-    }
-
-    private void fillDatabase() {
-        int numOfTickets = manager.createQuery("Select t From Ticket t", Ticket.class).getResultList().size();
-        if (numOfTickets == 0) {
-            User reporterTristan = new User("Tristan");
-            User assigneeJulien = new User("Julien");
-            User assigneeJohan = new User("Johan");
-
-            manager.persist(reporterTristan);
-            manager.persist(assigneeJulien);
-            manager.persist(assigneeJohan);
-
-            Ticket ticket1 = new Ticket("Ajout dashboard", "Ajout d'un dashboard sur l'écran d'accueil", reporterTristan);
-            ticket1.setAssignee(assigneeJulien);
-            ticket1.addTag(Tag.FEATURE);
-            Ticket ticket2 = new Ticket("Bug", "Bug lors du chargement des utilisateurs", reporterTristan);
-            ticket2.setAssignee(assigneeJohan);
-            ticket2.addTag(Tag.BUG);
-            Ticket ticket3 = new Ticket("Migration", "Migration vers Angular15", reporterTristan);
-            ticket1.setAssignee(assigneeJulien);
-            ticket1.addTag(Tag.TECH);
-
-            manager.persist(ticket1);
-            manager.persist(ticket2);
-            manager.persist(ticket3);
-
-            Message message1 = new Message(assigneeJohan, ticket2, "L'erreur vient-elle du back ou du front ?");
-            Message message2 = new Message(reporterTristan, ticket2, "Ca peut-être les deux, a vous de trouver");
-            Message message3 = new Message(assigneeJohan, ticket2, "D'accord !");
-            Message message4 = new Message(assigneeJulien, ticket3, "Peut-on passer directement de Angular12 à 15 ?");
-            Message message5 = new Message(reporterTristan, ticket3, "Non, il faut passer les versions une par une");
-            Message message6 = new Message(assigneeJulien, ticket3, "Ca marche !");
-
-            manager.persist(message1);
-            manager.persist(message2);
-            manager.persist(message3);
-            manager.persist(message4);
-            manager.persist(message5);
-            manager.persist(message6);
+		for(int i = 0 ; i < randomNames.length ; i++){
+			UserDao userDao = new UserDao();
+			User user = new SimpleUser(randomNames[i]);
+			userDao.save(user);
+		}
+	}
 
 
-          /*  UserDao userDao = new UserDao();
-            userDao.save(reporterTristan);
-            userDao.save(assigneeJulien);
-            userDao.save(assigneeJohan);
 
-            TicketDao ticketDao = new TicketDao();
-            ticketDao.save(ticket1);
-            ticketDao.save(ticket2);
-            ticketDao.save(ticket3);
+	/**
+	 * Peuple la base avec 5 Users qui font partie du support (n'ont pas de tickets créés ni affectés)
+	 */
+	public static void fillDatabaseWithSupportMembers(){
+		String[] randomAdmins = {"Admin A" , "Admin B", "Admin C", "Admin D", "Admin E"};
+		for(int i = 0 ; i < randomAdmins.length ; i++){
+			SupportMemberDao suppDao = new SupportMemberDao();
+			SupportMember supp = new SupportMember(randomAdmins[i]);
+			suppDao.save(supp);
+		}
+	}
 
-            MessageDao messageDao = new MessageDao();
-            messageDao.save(message1);
-            messageDao.save(message2);
-            messageDao.save(message3);
-            messageDao.save(message4);
-            messageDao.save(message5);
-            messageDao.save(message6);*/
-        }
 
-    }
+	/**
+	 *
+	 */
+	public static void fillDatabaseWithTicketsMessagesTags(){
+
+		User user1 = new SimpleUser("Jean");
+		User user2 = new SimpleUser("Jeanne");
+		User user3 = new SimpleUser("Pierre");
+
+		SupportMember supp1 = new SupportMember("Noel Plouzeau");
+		SupportMember supp2 = new SupportMember("Olivier Barais");
+
+		Tag tag1 = new Tag("Help");
+		Tag tag2 = new Tag("Bug");
+		Tag tag3 = new Tag("Feature");
+
+		Ticket ticket1 = new Ticket("Recherche Option","Où trouver...", user1);
+		Ticket ticket2 = new Ticket("Incompréhension","Je ne comprends pas...", user1);
+		Ticket ticket3 = new Ticket("Besoin d'aide", "J'ai besoin d'aide pour...", user2);
+		Ticket ticket4 = new Ticket("Erreur", "Erreur quand...", user2);
+		Ticket ticket5 = new Ticket("Disfonctionnement", "Ne fonctionne pas...", user3);
+		Ticket ticket6 = new Ticket("Idée Feature", "Nouveau bouton pour...", user3);
+
+		Message messageA1 = new Message(supp1, ticket1, "Veuillez vous rendre dans la section ...");
+		Message messageA2 = new Message(user1, ticket1, "Merci beaucoup.0");
+
+		Message messageB1 = new Message(supp1, ticket4, "L'erreur rencontrée se répète-t-elle à chaque tentative ?");
+		Message messageB2 = new Message(user2, ticket4, "Non elle apparaît seulement quand je fais un double-click");
+		Message messageB3 = new Message(supp1, ticket4, "Très bien, merci pour votre retour. L'erreur sera corrigée");
+
+		UserDao userDao = new UserDao();
+		userDao.save(user1);
+		userDao.save(user2);
+		userDao.save(user3);
+
+		TagDao tagDao = new TagDao();
+		tagDao.save(tag1);
+		tagDao.save(tag2);
+		tagDao.save(tag3);
+
+		ticket1.addTag(tag1);
+		ticket2.addTag(tag1);
+		ticket2.addTag(tag2);
+		ticket3.addTag(tag1);
+		ticket4.addTag(tag2);
+		ticket5.addTag(tag2);
+		ticket6.addTag(tag3);
+
+		TicketDao ticketDao = new TicketDao();
+		ticketDao.save(ticket1);
+		ticketDao.save(ticket2);
+		ticketDao.save(ticket3);
+		ticketDao.save(ticket4);
+		ticketDao.save(ticket5);
+		ticketDao.save(ticket6);
+
+		supp1.affectTicket(ticket1);
+		supp1.affectTicket(ticket2);
+		supp1.affectTicket(ticket3);
+		supp1.affectTicket(ticket4);
+		supp2.affectTicket(ticket4);
+		supp2.affectTicket(ticket5);
+		supp2.affectTicket(ticket6);
+
+		SupportMemberDao suppDao = new SupportMemberDao();
+		suppDao.save(supp1);
+		suppDao.save(supp2);
+
+		MessageDao messageDao = new MessageDao();
+		messageDao.save(messageA1);
+		messageDao.save(messageA2);
+		messageDao.save(messageB1);
+		messageDao.save(messageB2);
+		messageDao.save(messageB3);
+
+	}
+
+	public static void requestTest(){
+		 //UserDao userDao = new UserDao();
+		//List<Ticket> list = userDao.findAllTicketByUserId((long) 26 );
+		//System.out.println(list.get(0));
+
+		//TicketDao ticketDao = new TicketDao();
+		//List<Ticket> list = ticketDao.getAffectedTicketsBySupportMemberId((long) 35);
+		//System.out.println(list.get(0));
+
+
+
+	}
+
+
+
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		fillDatabaseWithNormalUsers();
+		//fillDatabaseWithSupportMembers();
+		//fillDatabaseWithTicketsMessagesTags();
+		//requestTest();
+
+
+
+		/* EntityManager manager = EntityManagerHelper.getEntityManager();
+		EntityTransaction tx = manager.getTransaction();
+		tx.begin();
+		try {
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		tx.commit();
+		manager.close();
+		EntityManagerHelper.closeEntityManagerFactory(); */
+		//		factory.close();
+	}
 
 
 }

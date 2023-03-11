@@ -1,42 +1,74 @@
 package jpa.business;
 
-import com.sun.istack.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+import static misc.GlobalFunctions.getCurrentDate;
+import static org.hsqldb.Tokens.CURRENT_DATE;
 
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+
+@NamedQuery(name="getAllUsers", query="select u from User as u")
 //Cette requête nommée est inutile car on utilise le pattern DAO. Elle est juste là pour répondre à la question du TP.
-@NamedQuery(name = "getAllUsers", query = "select u from User as u")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class User implements Serializable {
-    @Id
-    @GeneratedValue
+
+public abstract class User implements Serializable {
+
     private Long id;
-    @NotNull
     private String name;
-    @NotNull
-    LocalDate registrationDate;
-    @OneToMany(mappedBy = "assignee")
-    private List<Ticket> AssigneeTickets;
-    @OneToMany(mappedBy = "reporter")
-    private List<Ticket> ReporterTickets;
-    @OneToMany(mappedBy = "sender")
+    private Date registrationDate;
+    private List<Ticket> createdTickets;
     private List<Message> sentMessages;
 
-    public User(String name) {
-        this.name = name;
-        this.registrationDate = LocalDate.now();
+    public User(){
+        this.createdTickets = new ArrayList<Ticket>();
+        this.sentMessages = new ArrayList<Message>();
+        this.registrationDate = getCurrentDate();
     }
 
+    public User(String name){
+        this.name = name;
+        this.createdTickets = new ArrayList<Ticket>();
+        this.sentMessages = new ArrayList<Message>();
+        this.registrationDate = getCurrentDate();
+    }
+
+    @Id
+    @GeneratedValue
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Temporal(TemporalType.DATE)
+    public Date getRegistrationDate() { return registrationDate; }
+    public void setRegistrationDate(Date registrationDate) { this.registrationDate = registrationDate; }
+
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @OneToMany(mappedBy="creator")
+    public List<Ticket> getCreatedTickets() {
+        return createdTickets;
+    }
+    public void setCreatedTickets(List<Ticket> tickets) {
+        this.createdTickets = tickets;
+    }
+
+    @OneToMany (mappedBy="sender")
+    public List<Message> getSentMessages() {
+        return sentMessages;
+    }
+    public void setSentMessages(List<Message> sentMessages) {
+        this.sentMessages = sentMessages;
+    }
 }

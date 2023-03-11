@@ -1,42 +1,73 @@
 package jpa.business;
 
-import com.sun.istack.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
-import javax.swing.text.StringContent;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Date;
 
+import static misc.GlobalFunctions.getCurrentDate;
+
+
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class Message implements Serializable {
+
+    private Long id;
+    private User sender;
+    private Ticket relatedTicket;
+    private String content;
+    private Date date;
+
+    public Message(){
+        this.date = getCurrentDate();
+    }
+
+    public Message(User sender, Ticket ticket, String content){
+        this.sender = sender;
+        this.relatedTicket = ticket;
+        this.content = content;
+        this.date = getCurrentDate();
+    }
+
+    public String toString(){
+        return "Message : [" + this.id + "] " + date + '\n' + this.sender + this.relatedTicket + "Content : " + '\n' + this.content + '\n';
+    }
 
     @Id
     @GeneratedValue
-    private Long id;
-    @ManyToOne
-    @NotNull
-    private User sender;
-    @ManyToOne
-    @NotNull
-    private Ticket relatedTicket;
-    @NotNull
-    private String content;
-    @NotNull
-    private LocalDateTime date;
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public Message(User sender, Ticket relatedTicket, String content) {
+    @ManyToOne
+    public User getSender() {
+        return sender;
+    }
+    public void setSender(User sender) {
         this.sender = sender;
+    }
+
+    @ManyToOne
+    public Ticket getRelatedTicket() {
+        return relatedTicket;
+    }
+    public void setRelatedTicket(Ticket relatedTicket) {
         this.relatedTicket = relatedTicket;
+    }
+
+    public String getContent() {
+        return content;
+    }
+    public void setContent(String content) {
         this.content = content;
-        this.date = LocalDateTime.now();
+    }
+
+    @Temporal(TemporalType.TIME)
+    public Date getDate() {
+        return date;
+    }
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

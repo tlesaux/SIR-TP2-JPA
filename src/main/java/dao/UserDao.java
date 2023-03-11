@@ -10,8 +10,8 @@ public class UserDao extends AbstractJpaDao<Long, User> {
         super(User.class);
     }
 
-    public User getReporterByTicketId(Long ticketId){
-        Query query = entityManager.createQuery("select u from User u join Ticket t On t.reporter = ?1");
+    public User getUserByTicketId(Long ticketId){
+        Query query = entityManager.createQuery("select u from User u where u.creator.id = ?1");
         query.setParameter(1, ticketId);
         return (User) query.getSingleResult();
     }
