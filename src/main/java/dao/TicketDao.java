@@ -3,10 +3,8 @@ package dao;
 import jpa.business.Ticket;
 
 import javax.persistence.Query;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
-
-import static misc.GlobalFunctions.getCurrentDate;
 
 public class TicketDao extends AbstractJpaDao<Long, Ticket>{
 
@@ -14,53 +12,23 @@ public class TicketDao extends AbstractJpaDao<Long, Ticket>{
         super(Ticket.class);
     }
 
-    public void closeTicketByTicketId(Long ticketId){
-        Query query = entityManager.createQuery("UPDATE Ticket t SET status = 'Resolved' AND closingDate = ?date WHERE t.id = ?tid");
-        Date date = getCurrentDate();
+    public void closeTicketById(Long ticketId){
+        Query query = entityManager.createQuery("UPDATE Ticket t SET status = 'CLOSE', closingDate = :date WHERE t.id = :id");
+        LocalDateTime date = LocalDateTime.now();
         query.setParameter("date", date);
-        query.setParameter("tid", ticketId);
+        query.setParameter("id", ticketId);
         query.executeUpdate();
     }
 
-    public List<Ticket> getAllTicketsByTitle(String title){
-        Query query = entityManager.createQuery("select t from Ticket t where UPPER(t.title) LIKE CONCAT('%',UPPER(?1),'%')");
-        query.setParameter(1, title);
-        return query.getResultList();
-    }
-
-    public List<Ticket> getAllTicketsByUserId(Long userId){
-        Query query = entityManager.createQuery("select t from Ticket t where t.creator.id = ?1");
+    public List<Ticket> getAllTicketsByReporterId(Long userId){
+        Query query = entityManager.createQuery("select t from Ticket t where t.reporter.id = ?1");
         query.setParameter(1, userId);
         return query.getResultList();
     }
 
-    public List<Ticket> getOpenTicketsByUserId(Long userId){
-        Query query = entityManager.createQuery("select t from Ticket as t where t.creator.id = ?1 AND t.status != 'Resolved'");
+    public List<Ticket> getAllTicketsByAssigneeId(Long userId){
+        Query query = entityManager.createQuery("select t from Ticket t where t.assignee.id = ?1");
         query.setParameter(1, userId);
-        return query.getResultList();
-    }
-
-    public List<Ticket> getAffectedTicketsBySupportMemberId(Long userId){
-        Query query = entityManager.createQuery("select t from Ticket t join t.affectedSupportMembers m WHERE m.id = ?1");
-        query.setParameter(1, userId);
-        return query.getResultList();
-    }
-
-    public List<Ticket> getOpenAffectedTicketsBySupportMemberId(Long userId){
-        Query query = entityManager.createQuery("select t from Ticket t join t.affectedSupportMembers m WHERE m.id = ?1 AND t.status != 'Resolved'");
-        query.setParameter(1, userId);
-        return query.getResultList();
-    }
-
-    public List<Ticket> getTicketsByTagName(String tagName){
-        Query query = entityManager.createQuery("select t from Ticket t join t.tags g WHERE g.name = ?1 ");
-        query.setParameter(1, tagName);
-        return query.getResultList();
-    }
-
-    public List<Ticket> getOpenTicketsByTagName(String tagName){
-        Query query = entityManager.createQuery("select t from Ticket t join t.tags g WHERE g.name = ?1 AND t.status != 'Resolved' ");
-        query.setParameter(1, tagName);
         return query.getResultList();
     }
 

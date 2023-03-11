@@ -12,7 +12,7 @@ public class MessageDao extends AbstractJpaDao<Long, Message> {
     }
 
     public List<Message> getMessagesByTicketId(Long ticketId){
-        Query query = entityManager.createQuery("select m from Message m where m.ticket.id = ?1");
+        Query query = entityManager.createQuery("select m from Message m where m.relatedTicket.id = ?1");
         query.setParameter(1, ticketId);
         return query.getResultList();
     }
