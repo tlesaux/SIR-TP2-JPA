@@ -116,29 +116,24 @@ public class JpaTest {
 	}
 
 	public static void requestTest(){
-		 //UserDao userDao = new UserDao();
-		//List<Ticket> list = userDao.findAllTicketByUserId((long) 26 );
-		//System.out.println(list.get(0));
 
-		//TicketDao ticketDao = new TicketDao();
-		//List<Ticket> list = ticketDao.getAffectedTicketsBySupportMemberId((long) 35);
-		//System.out.println(list.get(0));
+		TicketDao ticketDao = new TicketDao();
 
+		List<Ticket> list1 = ticketDao.getAllTicketsByUserId((long) 26);
+		 System.out.println(list1.get(0));
 
-
+		 List<Ticket> list2 = ticketDao.getAffectedTicketsBySupportMemberId((long) 35);
+		 System.out.println(list2.get(0));
 	}
-
-
-
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		fillDatabaseWithNormalUsers();
-		//fillDatabaseWithSupportMembers();
-		//fillDatabaseWithTicketsMessagesTags();
-		//requestTest();
+		fillDatabaseWithSupportMembers();
+		fillDatabaseWithTicketsMessagesTags();
+		requestTest();
 
 
 
