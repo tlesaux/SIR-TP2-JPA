@@ -53,12 +53,9 @@
             <property name="hibernate.archive.autodetection" value="class, hbm"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>
-           <!-- <property name="hibernate.connection.password" value="my-secret-pw"/> -->
-          <!--  <property name="hibernate.connection.url" value="jdbc:mysql://localhost/mydatabase"/> -->
-            <!-- <property name="hibernate.connection.username" value="root"/> -->
-            <property name="hibernate.connection.password" value="21032017"/>
-            <property name="hibernate.connection.url" value="jdbc:mysql://istic-vpn.univ-rennes1.fr/base_tlesaux"/>
-            <property name="hibernate.connection.username" value="user_tlesaux"/>
+            <property name="hibernate.connection.password" value="my-secret-pw"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost/mydatabase"/>
+            <property name="hibernate.connection.username" value="root"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
             <property name="hibernate.c3p0.min_size" value="5"/>
             <property name="hibernate.c3p0.max_size" value="20"/>
