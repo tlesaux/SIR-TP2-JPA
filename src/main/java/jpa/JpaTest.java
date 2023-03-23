@@ -3,6 +3,8 @@ package jpa;
 import dao.*;
 import jpa.business.*;
 
+import javax.persistence.Query;
+import javax.transaction.Transactional;
 import java.util.List;
 
 
@@ -120,11 +122,52 @@ public class JpaTest {
 		TicketDao ticketDao = new TicketDao();
 
 		List<Ticket> list1 = ticketDao.getAllTicketsByUserId((long) 26);
-		 System.out.println(list1.get(0));
+		System.out.println(list1.get(0));
 
-		 List<Ticket> list2 = ticketDao.getAffectedTicketsBySupportMemberId((long) 35);
-		 System.out.println(list2.get(0));
+		List<Ticket> list2 = ticketDao.getAffectedTicketsBySupportMemberId((long) 35);
+		System.out.println(list2.get(0));
+
+		ticketDao.closeTicketByTicketId((long)29);
+
+		List<Ticket> list3 = ticketDao.getAllTicketsByTitle("Recherche Option");
+		System.out.println(list3.get(0));
+
+		List<Ticket> list4 = ticketDao.getOpenTicketsByUserId((long)26);
+		System.out.println(list4.get(0));
+
+		List<Ticket> list5 = ticketDao.getOpenAffectedTicketsBySupportMemberId((long)35);
+		System.out.println(list5.get(0));
+
+		List<Ticket> list6 = ticketDao.getTicketsByTagName("Bug");
+		System.out.println(list6.get(0));
+
+		List<Ticket> list7 = ticketDao.getOpenTicketsByTagName("Bug");
+		System.out.println(list7.get(0));
+
+		UserDao userDao = new UserDao();
+		User user = userDao.getUserByTicketId((long)29);
+		System.out.println(user);
+
+		TagDao tagDao = new TagDao();
+		List<Tag> list8 = tagDao.findAllTagsByTicketId((long)29);
+		System.out.println(list8.get(0));
+
+		SupportMemberDao supportMemberDao = new SupportMemberDao();
+		List<SupportMember> list9 = supportMemberDao.getAffectedSupportMembersByTicketId((long)32);
+		System.out.println(list9.get(0));
+		System.out.println(list9.get(1));
+
+		MessageDao messageDao = new MessageDao();
+		List<Message> list10 = messageDao.getMessagesByTicketId((long)29);
+		System.out.println(list10.get(0));
+		System.out.println(list10.get(1));
+
+		List<Message> list11 = messageDao.getMessagesByUserId((long)35);
+		System.out.println(list11.get(0));
+
 	}
+
+
 
 	/**
 	 * @param args
@@ -134,8 +177,6 @@ public class JpaTest {
 		fillDatabaseWithSupportMembers();
 		fillDatabaseWithTicketsMessagesTags();
 		requestTest();
-
-
 
 		/* EntityManager manager = EntityManagerHelper.getEntityManager();
 		EntityTransaction tx = manager.getTransaction();

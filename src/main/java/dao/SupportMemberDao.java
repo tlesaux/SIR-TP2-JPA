@@ -12,7 +12,7 @@ public class SupportMemberDao extends AbstractJpaDao<Long, SupportMember>{
     }
 
     public List<SupportMember> getAffectedSupportMembersByTicketId(Long ticketId){
-        Query query = entityManager.createQuery("select m from SupportMember join m.affectedTickets t where t.id = ?1");
+        Query query = entityManager.createQuery("select m from Ticket t join t.affectedSupportMembers m where t.id = ?1");
         query.setParameter(1, ticketId);
         return query.getResultList();
     }

@@ -3,6 +3,7 @@ package dao;
 import jpa.business.Ticket;
 
 import javax.persistence.Query;
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 
@@ -15,11 +16,14 @@ public class TicketDao extends AbstractJpaDao<Long, Ticket>{
     }
 
     public void closeTicketByTicketId(Long ticketId){
-        Query query = entityManager.createQuery("UPDATE Ticket t SET status = 'Resolved' AND closingDate = ?date WHERE t.id = ?tid");
-        Date date = getCurrentDate();
-        query.setParameter("date", date);
-        query.setParameter("tid", ticketId);
-        query.executeUpdate();
+        Ticket t = findOne(ticketId);
+        if(t != null){
+            t.setStatus("Resolved");
+            t.setClosingDate(getCurrentDate());
+            update(t);
+        }else {
+            System.out.println("Could not find a Ticket with the ID " + ticketId);
+        }
     }
 
     public List<Ticket> getAllTicketsByTitle(String title){
