@@ -49,10 +49,6 @@ public class JpaTest {
         userDao.save(assigneeJulien);
         userDao.save(assigneeJohan);
 
-            /*manager.persist(reporterTristan);
-            manager.persist(assigneeJulien);
-            manager.persist(assigneeJohan);*/
-
         Ticket ticket1 = new Ticket("Ajout dashboard", "Ajout d'un dashboard sur l'écran d'accueil", reporterTristan);
         ticket1.setAssignee(assigneeJulien);
         ticket1.addTag(Tag.FEATURE);
@@ -60,8 +56,8 @@ public class JpaTest {
         ticket2.setAssignee(assigneeJohan);
         ticket2.addTag(Tag.BUG);
         Ticket ticket3 = new Ticket("Migration", "Migration vers Angular15", reporterTristan);
-        ticket1.setAssignee(assigneeJulien);
-        ticket1.addTag(Tag.TECH);
+        ticket3.setAssignee(assigneeJulien);
+        ticket3.addTag(Tag.TECH);
 
         TicketDao ticketDao = new TicketDao();
         ticketDao.save(ticket1);
