@@ -27,14 +27,14 @@ public class JpaTest {
         EntityManager manager = factory.createEntityManager();
         JpaTest test = new JpaTest(manager);
 
-        EntityTransaction tx = manager.getTransaction();
-        tx.begin();
+//        EntityTransaction tx = manager.getTransaction();
+//        tx.begin();
         try {
             test.fillDatabase();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        tx.commit();
+       // tx.commit();
 
         test.listTickets();
 
@@ -57,9 +57,14 @@ public class JpaTest {
             User assigneeJulien = new User("Julien");
             User assigneeJohan = new User("Johan");
 
-            manager.persist(reporterTristan);
+            UserDao userDao = new UserDao();
+            userDao.save(reporterTristan);
+            userDao.save(assigneeJulien);
+            userDao.save(assigneeJohan);
+
+            /*manager.persist(reporterTristan);
             manager.persist(assigneeJulien);
-            manager.persist(assigneeJohan);
+            manager.persist(assigneeJohan);*/
 
             Ticket ticket1 = new Ticket("Ajout dashboard", "Ajout d'un dashboard sur l'écran d'accueil", reporterTristan);
             ticket1.setAssignee(assigneeJulien);
@@ -71,9 +76,14 @@ public class JpaTest {
             ticket1.setAssignee(assigneeJulien);
             ticket1.addTag(Tag.TECH);
 
-            manager.persist(ticket1);
+            TicketDao ticketDao = new TicketDao();
+            ticketDao.save(ticket1);
+            ticketDao.save(ticket2);
+            ticketDao.save(ticket3);
+
+         /*   manager.persist(ticket1);
             manager.persist(ticket2);
-            manager.persist(ticket3);
+            manager.persist(ticket3);*/
 
             Message message1 = new Message(assigneeJohan, ticket2, "L'erreur vient-elle du back ou du front ?");
             Message message2 = new Message(reporterTristan, ticket2, "Ca peut-être les deux, a vous de trouver");
@@ -82,12 +92,20 @@ public class JpaTest {
             Message message5 = new Message(reporterTristan, ticket3, "Non, il faut passer les versions une par une");
             Message message6 = new Message(assigneeJulien, ticket3, "Ca marche !");
 
-            manager.persist(message1);
+            MessageDao messageDao = new MessageDao();
+            messageDao.save(message1);
+            messageDao.save(message2);
+            messageDao.save(message3);
+            messageDao.save(message4);
+            messageDao.save(message5);
+            messageDao.save(message6);
+
+           /* manager.persist(message1);
             manager.persist(message2);
             manager.persist(message3);
             manager.persist(message4);
             manager.persist(message5);
-            manager.persist(message6);
+            manager.persist(message6);*/
 
 
           /*  UserDao userDao = new UserDao();
