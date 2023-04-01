@@ -29,33 +29,16 @@ public class TicketForm extends HttpServlet {
         PrintWriter out = response.getWriter();
         List<Ticket> ticketList = ticketDao.findAll();
         StringBuilder html = new StringBuilder("<HTML>\n<BODY>\n" + "<H1>Nouveau Ticket</H1>\n" + "<UL>\n");
-html.append("<FORM Method=\"POST\" Action=\"/TicketInfo\">\n" +
-        "    <label for=\"title\">Titre :</label>\n" +
-        "    <INPUT type=\"text\" name=\"title\" id=\"title\"><BR><BR>\n" +
-        "    <INPUT type=\"submit\">\n" +
-        "</FORM>");
+        html.append("<FORM Method=\"POST\" Action=\"/TicketInfo\">\n" +
+                "    <label for=\"title\">Titre :</label>\n" +
+                "    <INPUT type=\"text\" name=\"title\" id=\"title\"><BR><BR>\n" +
+                "    <INPUT type=\"submit\">\n" +
+                "</FORM>");
 
         html.append("\n" + "</UL>\n");
 
-
-
-
         html.append("</BODY></HTML>");
         out.println(html);
-
-        // Ticket ticket1 = ticketDao.findOne(4L);
-     /*   out.println("<HTML>\n<BODY>\n" + "<H1>Tickets</H1>\n" +
-                "<UL>\n" +
-                " <LI>Nom: " +
-                ticket.getDescription() +
-                "\n" +
-                " <LI>Prenom: " +
-                request.getParameter("firstname") +
-                "\n" +
-                " <LI>Age: " +
-                request.getParameter("age") +
-                "\n" +
-                "</UL>\n" + "</BODY></HTML>");*/
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -64,9 +47,6 @@ html.append("<FORM Method=\"POST\" Action=\"/TicketInfo\">\n" +
         Ticket ticket = new Ticket(request.getParameter("name"), "Ma description,", new User("Tristan"));
         System.out.println(ticket);
         ticketDao.save(ticket);
-        // Ticket ticket1 = ticketDao.findOne(4L);
-
-
         out.println("<HTML>\n<BODY>\n" + "<H1>Tickets</H1>\n" + "<UL>\n" + " <LI>Nom: " + ticket.getDescription() + "\n" + " <LI>Prenom: " + request.getParameter("firstname") + "\n" + " <LI>Age: " + request.getParameter("age") + "\n" + "</UL>\n" + "</BODY></HTML>");
     }
 }
