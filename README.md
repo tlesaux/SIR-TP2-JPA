@@ -1,1 +1,2 @@
-# Template de projet pour le TP JPA 2021 UniR
+# SIR TP 2-4
+Voir fichier word Rapport TP 2-4
